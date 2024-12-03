@@ -1,0 +1,48 @@
+
+plugins {
+  id 'java'
+}
+
+group = 'com.Game_JAVA'
+version = '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+
+//[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+//eclipse.project.name = appName + '-core'
+
+
+dependencies {
+  implementation "mysql:mysql-connector-java:8.0.31"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  if(enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+
+  // Dépendances pour le module core
+  implementation 'org.lwjgl:lwjgl:3.3.0'
+  implementation 'org.lwjgl:lwjgl-glfw:3.3.0'
+  implementation 'org.lwjgl:lwjgl-opengl:3.3.0'
+  implementation 'org.lwjgl:lwjgl-stb:3.3.0'
+  implementation 'org.lwjgl:lwjgl-tinyfd:3.3.0'
+
+  // Si vous avez des dépendances spécifiques au module core, ajoutez-les ici
+}
+
+subprojects {
+  if (project.name == 'core') {
+    java.sourceCompatibility = 17
+    java.targetCompatibility = 17
+  } else {
+    java.sourceCompatibility = 11
+    java.targetCompatibility = 11
+  }
+}
+
+java.sourceCompatibility = '11'  // Java 17
+java.targetCompatibility = '11'
+
